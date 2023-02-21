@@ -184,6 +184,11 @@
             $("#new-user-modal").modal('hide');
         })
     </script>
+    <script>
+        window.addEventListener('showModal', e => {
+            $("#new-user-modal").modal('show');
+        })
+    </script>
 </body>
 
 </html>
