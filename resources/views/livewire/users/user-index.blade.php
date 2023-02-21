@@ -1,13 +1,13 @@
 <div>
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Users</h1>
+    <div class="mb-4 d-sm-flex align-items-center justify-content-between">
+        <h1 class="mb-0 text-gray-800 h3">Users</h1>
     </div>
     <div class="row">
-        <div class="card  mx-auto">
+        <div class="mx-auto card">
             <div>
-                @if (session()->has('message'))
+                @if (session()->has('user-message'))
                     <div class="alert alert-success">
-                        {{ session('message') }}
+                        {{ session('user-message') }}
                     </div>
                 @endif
             </div>
@@ -17,7 +17,7 @@
                         <form method="GET" action="{{-- route('users.index') --}}">
                             <div class="form-row align-items-center">
                                 <div class="col">
-                                    <input type="search" wire:model.debounce.750ms='search' class="form-control mb-2"
+                                    <input type="search" wire:model.debounce.750ms='search' class="mb-2 form-control"
                                         id="inlineFormInput" placeholder="Search...">
                                 </div>
                                 <div class="col" wire:loading>
@@ -55,6 +55,8 @@
                                 <td>
                                     <button wire:click='showEditModal({{ $user->id }})'
                                         class="btn btn-success">Edit</button>
+                                    <button wire:click='deleteUser({{ $user->id }})'
+                                        class="btn btn-danger">Delete</button>
                                 </td>
                             </tr>
                         @empty
