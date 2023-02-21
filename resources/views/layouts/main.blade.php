@@ -22,7 +22,7 @@
     <!-- Custom styles for this template-->
     @vite(['resources/css/sb-admin.min.css', 'resources/js/sb-admin.min.js'])
     <script src="https://cdn.tailwindcss.com"></script>
-
+    @livewireStyles
 </head>
 
 <body id="page-top">
@@ -78,7 +78,7 @@
                 </a>
                 <div id="collapseUser" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{-- route('users.index') --}}">Users</a>
+                        <a class="collapse-item" href="{{ route('users.index') }}">Users</a>
                         <a class="collapse-item" href="cards.html">Role</a>
                         <a class="collapse-item" href="cards.html">Permission</a>
                     </div>
@@ -177,7 +177,8 @@
 
     <!-- Custom scripts for all pages-->
     {{-- <script src="{{ asset('js/sb-admin.min.js') }}"></script> --}}
-
+    @stack('modals')
+    @livewireScripts
 </body>
 
 </html>
