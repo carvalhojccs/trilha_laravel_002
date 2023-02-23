@@ -5,9 +5,12 @@ namespace App\Http\Livewire\Users;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class UserIndex extends Component
 {
+    use WithPagination;
+
     public $search = '';
 
     public $username;
@@ -106,7 +109,7 @@ class UserIndex extends Component
 
     public function render()
     {
-        $users = User::all();
+        $users = User::paginate(3);
 
         if (strlen($this->search) > 2) {
             $users = User::where('username', 'ilike', "%{$this->search}%")->get();
