@@ -14,7 +14,7 @@
             <div class="card-header">
                 <div class="row">
                     <div class="col">
-                        <form method="GET" action="{{-- route('users.index') --}}">
+                        <form>
                             <div class="form-row align-items-center">
                                 <div class="col">
                                     <input type="search" wire:model.debounce.750ms='search' class="mb-2 form-control"
@@ -29,8 +29,7 @@
                         </form>
                     </div>
                     <div>
-                        <button type="button" class="btn btn-primary" data-toggle="modal"
-                            data-target="#new-user-modal">
+                        <button wire:click='showUserModal' class="btn btn-primary">
                             New User
                         </button>
                     </div>
