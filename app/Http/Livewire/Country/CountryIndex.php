@@ -99,7 +99,7 @@ class CountryIndex extends Component
         $countries = Country::paginate(5);
 
         if (strlen($this->search) > 2) {
-            $countries = Country::where('name', 'like', "%{$this->search}%")->get();
+            $countries = Country::where('name', 'ilike', "%{$this->search}%")->paginate();
         }
 
         return view('livewire.country.country-index', [

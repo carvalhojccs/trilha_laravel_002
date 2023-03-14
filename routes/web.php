@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Livewire\Country\CountryIndex;
+use App\Http\Livewire\State\StateIndex;
 use App\Http\Livewire\Users\UserIndex;
 use Illuminate\Support\Facades\Route;
 
@@ -30,4 +31,5 @@ Route::middleware([
 
     Route::get('/users', UserIndex::class)->name('users.index');
     Route::get('/countries', CountryIndex::class)->name('countries.index');
+    Route::get('/states', stateIndex::class)->name('states.index');
 });
