@@ -11,15 +11,19 @@ class StateIndex extends Component
     use WithPagination;
 
     public $search = '';
+
     public $editMode = false;
+
     public $countryId;
+
     public $name;
+
     public $stateId;
 
     // regras de validação
     protected $rules = [
         'countryId' => 'required',
-        'name' => 'required'
+        'name' => 'required',
     ];
 
     public function showEditModal($id)
@@ -49,14 +53,14 @@ class StateIndex extends Component
     {
         $validated = $this->validate([
             'countryId' => 'required',
-            'name' => 'required'
+            'name' => 'required',
         ]);
 
         $state = State::find($this->stateId);
 
         $state->update($validated);
         $this->reset();
-        $this->dispatchBrowserEvent('modal',['modalId' => '#new-state-modal', 'actionModal' => 'hide']);
+        $this->dispatchBrowserEvent('modal', ['modalId' => '#new-state-modal', 'actionModal' => 'hide']);
         session()->flash('state-message', 'State successfully updated!');
     }
 
@@ -76,7 +80,7 @@ class StateIndex extends Component
 
     public function storeState()
     {
-        $this->validate();        
+        $this->validate();
 
         State::create([
             'country_id' => $this->countryId,
@@ -90,7 +94,6 @@ class StateIndex extends Component
         session()->flash('state-message', 'State successfully created!');
     }
 
-
     public function render()
     {
         $states = State::paginate(5);
@@ -98,8 +101,9 @@ class StateIndex extends Component
         if (strlen($this->search) > 2) {
             $states = State::where('name', 'ilike', "%{$this->search}%")->paginate(5);
         }
+
         return view('livewire.state.state-index', [
-            'states' => $states,            
+            'states' => $states,
         ])->layout('layouts.main');
     }
 }

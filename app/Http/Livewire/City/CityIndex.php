@@ -11,15 +11,19 @@ class CityIndex extends Component
     use WithPagination;
 
     public $search = '';
+
     public $editMode = false;
+
     public $stateId;
+
     public $name;
+
     public $cityId;
 
     // regras de validação
     protected $rules = [
         'stateId' => 'required',
-        'name' => 'requiered'
+        'name' => 'required',
     ];
 
     public function showEditModal($id)
@@ -40,8 +44,8 @@ class CityIndex extends Component
     public function loadCity()
     {
         $city = City::find($this->cityId);
-        
-        $this->cityId = $city->city_id;
+
+        $this->cityId = $city->state_id;
         $this->name = $city->name;
     }
 
@@ -49,14 +53,14 @@ class CityIndex extends Component
     {
         $validated = $this->validate([
             'stateId' => 'required',
-            'name' => 'required'
+            'name' => 'required',
         ]);
 
         $city = City::find($this->cityId);
 
         $city->update($validated);
         $this->reset();
-        $this->dispatchBrowserEvent('modal',['modalId' => '#new-city-modal', 'actionModal' => 'hide']);
+        $this->dispatchBrowserEvent('modal', ['modalId' => '#new-city-modal', 'actionModal' => 'hide']);
         session()->flash('city-message', 'City successfully updated!');
     }
 
@@ -76,7 +80,7 @@ class CityIndex extends Component
 
     public function storeCity()
     {
-        $this->validate();        
+        $this->validate();
 
         City::create([
             'state_id' => $this->stateId,
@@ -89,7 +93,6 @@ class CityIndex extends Component
 
         session()->flash('city-message', 'City successfully created!');
     }
-    
 
     public function render()
     {
