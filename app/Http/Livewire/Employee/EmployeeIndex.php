@@ -55,6 +55,8 @@ class EmployeeIndex extends Component
     public function showEditModal($id)
     {
         $this->reset();
+        
+        $this->employeeId = $id;
 
         $employee = Employee::find($id);
 
@@ -113,23 +115,23 @@ class EmployeeIndex extends Component
 
     public function updateEmployee()
     {
-        $validated = $this->validate([
-            'lastName' => 'required',
-            'firstName' => 'required',
-            'middleName' => 'required',
-            'address' => 'required',
-            'zipCode' => 'required',
-            'birthdate' => 'required',
-            'dateHired' => 'required',
-            'departmentId' => 'required',
-            'countryId' => 'required',
-            'stateId' => 'required',
-            'cityId' => 'required',
+        $this->validate();       
+
+        $employee = Employee::find($this->employeeId);      
+
+        $employee->update([
+            'last_name' => $this->lastName,
+            'first_name' => $this->firstName,
+            'middle_name' => $this->middleName,
+            'address' => $this->address,
+            'zip_code' => $this->zipCode,
+            'birthdate' => $this->birthdate,
+            'date_hired' => $this->dateHired,
+            'department_id' => $this->departmentId,
+            'country_id' => $this->countryId,
+            'state_id' => $this->stateId,
+            'city_id' => $this->cityId,
         ]);
-
-        $employee = Employee::find($this->employeeId);
-
-        $employee->update($validated);
 
         $this->reset();
         $this->dispatchBrowserEvent('modal', ['modalId' => '#new-employee-modal', 'actionModal' => 'hide']);
@@ -150,7 +152,7 @@ class EmployeeIndex extends Component
         $employees = Employee::paginate(5);
 
         if (strlen($this->search) > 2) {
-            $employee = Employee::where('firstName', 'ilike', "%{$this->search}%")->paginate(5);
+            $employee = Employee::where('first_name', 'ilike', "%{$this->search}%")->paginate(5);
         }
 
         return view('livewire.employee.employee-index', compact('employees'))->layout('layouts.main');
