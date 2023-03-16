@@ -20,6 +20,14 @@
                                     <input type="search" wire:model.debounce.750ms='search' class="mb-2 form-control"
                                         id="inlineFormInput" placeholder="Search...">
                                 </div>
+                                <div class="col">
+                                <select wire:model='selectedDepartmentId' class="mb-2 form-control">
+                                    <option selected>Choose department</option>
+                                    @foreach (App\Models\Department::all() as $department)
+                                        <option value="{{ $department->id }}">{{ $department->name }}</option>
+                                    @endforeach
+                                </select>
+                                </div>
                                 <div class="col" wire:loading>
                                     <div class="spinner-border" role="status">
                                         <span class="sr-only">Loading...</span>

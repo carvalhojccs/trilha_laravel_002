@@ -38,6 +38,8 @@ class EmployeeIndex extends Component
 
     public $cityId;
 
+    public $selectedDepartmentId = null;
+
     protected $rules = [
         'lastName' => 'required',
         'firstName' => 'required',
@@ -152,7 +154,15 @@ class EmployeeIndex extends Component
         $employees = Employee::paginate(5);
 
         if (strlen($this->search) > 2) {
-            $employee = Employee::where('first_name', 'ilike', "%{$this->search}%")->paginate(5);
+            if ($this->selectedDepartmentId) {
+                $employees = Employee::where('first_name', 'ilike', "%{$this->search}%")
+                            ->where('department_id', $this->selectedDepartmentId)
+                            ->paginate(5);
+            } else {
+                $employees = Employee::where('department_id', $this->selectedDepartmentId)->paginate(5);
+            }
+        } else if ($this->selectedDepartmentId) {
+            $employees = Employee::where('department_id', $this->selectedDepartmentId)->paginate(5);
         }
 
         return view('livewire.employee.employee-index', compact('employees'))->layout('layouts.main');
