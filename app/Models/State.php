@@ -11,7 +11,7 @@ class State extends Model
 
     protected $fillable = [
         'country_id',
-        'name'
+        'name',
     ];
 
     public function country()
@@ -22,5 +22,10 @@ class State extends Model
     public function cities()
     {
         return $this->hasMany(City::class);
+    }
+
+    public function Employees()
+    {
+        return $this->hasMany(Employee::class);
     }
 }
